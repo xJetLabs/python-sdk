@@ -5,6 +5,9 @@
 - [@nik-1x](https://www.github.com/nik-1x)
  
 ## Usage/Examples  
+
+[Live example](https://replit.com/@delpydoc/xJetAPI)
+
 ```python
 api = pyxJet(
     api_key="API_KEY",
@@ -34,6 +37,12 @@ await api.cheque_cancel(cheque_id) # delete cheque
 await api.invoice_create(currency, amount, description, max_payments) # create invoice
 await api.invoice_status(invoice_status) # get invoice status
 await api.invoice_list() # get invoices on account
+```
+
+```python
+# NFT methods
+await api.nft_list()
+await api.nft_transfer(nft_address, to_address)
 ```
 
 ## License

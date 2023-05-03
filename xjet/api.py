@@ -139,7 +139,7 @@ class Invoices:
 
     """
 
-    async def invoice_create(self, currency: str, amount: int, description: str = None, max_payments: int = 1):
+    async def invoice_create(self, currency: str, amount: int, description: str = None, max_payments: int = 1, expires: int = None):
         """ Create invoice 
         
         :param `currency` [str]: Currency of invoice
@@ -153,7 +153,8 @@ class Invoices:
                 'currency': currency.lower(),
                 'amount': amount,
                 'description': description,
-                'max_payments': max_payments
+                'max_payments': max_payments,
+                'expires': expires
             }
         )
 
@@ -168,3 +169,34 @@ class Invoices:
         """ Get invoice list """
         return await self.request(method = 'invoice.list')
 
+
+class NFT:
+
+    """ NFT methods wrapper. 
+    
+    Available methods:
+    
+    * nft_list()
+    * nft_transfer()
+
+    """
+
+    async def nft_list(self):
+        """ List your NFTs """
+        return await self.request(method = 'nft.list')
+
+    async def nft_transfer(self, nft_address: str, to_address: str):
+        """nft_transfer
+
+        Args:
+            nft_address (str): NFT Item contract address
+            to_address (str): Transfer recipient address
+        """
+        return await self.request(
+            method = 'nft.transfer',
+            json = self.sign_message({
+                'nft_address': nft_address,
+                'to_address': to_address
+            }) 
+        )
+        
