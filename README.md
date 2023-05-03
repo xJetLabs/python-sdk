@@ -31,6 +31,7 @@ while True:
 
 
 ## Usage/Examples  
+[Live example](https://replit.com/@delpydoc/xJetAPI)
 
 ### Initialization
 ```python
@@ -144,6 +145,12 @@ await api.invoice_status(invoice_status) # get invoice status
 
 await api.invoice_list() # get invoices on account
 # list of invoice_status
+```
+
+```python
+# NFT methods
+await api.nft_list()
+await api.nft_transfer(nft_address, to_address)
 ```
 
 ## License

@@ -2,14 +2,13 @@ import time
 import json
 
 from .constants import xJetNet
-from .api import Account, Cheques, Invoices, System
+from .api import Account, Cheques, Invoices, System, NFT
 
 from nacl.signing import SigningKey
 from httpx import AsyncClient
 
 
-class JetAPI(Account, Cheques, Invoices, System):
-
+class JetAPI(Account, Cheques, Invoices, System, NFT):
     """
     Class for working with t.me/xJetSwapBot API.
 
