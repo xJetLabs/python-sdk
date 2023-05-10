@@ -26,7 +26,7 @@ while True:
     )
     print(res.json)
 
-    time.spleep(3)
+    time.sleep(3)
 ```
 
 
