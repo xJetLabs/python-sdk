@@ -55,7 +55,7 @@ class JetAPI(Account, Cheques, Invoices, System):
         
         :param `message` [dict]: Message for signing"""
         if 'query_id' not in message: 
-            message['query_id'] = int(time.time() + secrets.SystemRandom().randrange(1, 10000)) << 16
+            message['query_id'] = int(time.time() + secrets.SystemRandom().randrange(60, 16000)) << 16
 
         message['signature'] = SigningKey(self.private_key).sign(
             json.dumps(message).encode()
