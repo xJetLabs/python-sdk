@@ -10,7 +10,7 @@ pip install xjet
 ```
 If requires <b>nacl</b> package, install it <i>manually</i>:
 ```shell
-pip install pynacl
+pip install ecdsa
 ```
 
 ## Webhook analog
@@ -26,7 +26,7 @@ while True:
     )
     print(res.json)
 
-    time.spleep(3)
+    time.sleep(3)
 ```
 
 
