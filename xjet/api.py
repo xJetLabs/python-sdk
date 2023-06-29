@@ -1,3 +1,5 @@
+from typing import Union
+
 
 class System:
 
@@ -43,12 +45,12 @@ class Account:
         """ Check for deposit """
         return await self.request(method = 'account.submitDeposit')
 
-    async def withdraw(self, ton_address: str, currency: str, amount: float):
+    async def withdraw(self, ton_address: str, currency: str, amount: Union[int, float]):
         """ Withdraw funds 
         
         :param `ton_address` [str]: TON address
         :param `currency` [str]: Currency of withdraw
-        :param `amount` [float]: Amount of withdraw
+        :param `amount` Union[int, float]: Amount of withdraw
         """
         return await self.request(
             method = 'account.withdraw', 
@@ -80,11 +82,11 @@ class Cheques:
     
     """
 
-    async def cheque_create(self, currency: str, amount: int, expires: int = None, description: str = '', activates_count: int = 1, groups_id: list = None, personal_id: str = None, password: str = None, **kwargs):
+    async def cheque_create(self, currency: str, amount: Union[int, float], expires: int = None, description: str = '', activates_count: int = 1, groups_id: list = None, personal_id: str = None, password: str = None, **kwargs):
         """ Create cheques 
         
         :param `currency` [str]: Currency of cheque
-        :param `amount` [int]: Amount of cheque
+        :param `amount` Union[int, float]: Amount of cheque
         :param `expires` [int]: Expiration time of cheque
         :param `description` [str]: Description of cheque
         :param `activates_count` [int]: Number of activations
@@ -139,11 +141,11 @@ class Invoices:
 
     """
 
-    async def invoice_create(self, currency: str, amount: int, description: str = None, max_payments: int = 1, expires: int = None):
+    async def invoice_create(self, currency: str, amount: Union[int, float], description: str = None, max_payments: int = 1, expires: int = None):
         """ Create invoice 
         
         :param `currency` [str]: Currency of invoice
-        :param `amount` [int]: Amount of invoice
+        :param `amount` Union[int, float]: Amount of invoice
         :param `description` [str]: Description of invoice
         :param `max_payments` [int]: Max payments
         """
@@ -200,3 +202,58 @@ class NFT:
             }) 
         )
         
+
+class Exchanges:
+
+    """ Exchange methods wrapper. 
+    
+    Available methods:
+    
+    * pairs()
+    * estimate()
+    * create_order()
+    * order_status()
+
+    """
+
+    async def pairs(self):
+        """ Get list of pairs """
+        return await self.request(method = 'exchanges.pairs', request_method = 'GET')
+
+    async def estimate(self, pair: list, action_type: str, amount: Union[int, float]):
+        """ Estimate
+
+        :param `pair` [list]: Pair
+        :param `type` [str]: Type
+        :param `amount` Union[int, float]: Amount
+        
+        """
+        return await self.request(
+            method = 'exchanges.estimate', 
+            json = {
+                'pair': pair, 'type': action_type, 'amount': amount
+            }
+        )
+
+    async def create_order(self, pair: list, action_type: str, amount: Union[int, float], min_excepted_amount: Union[int, float]):
+        """ Create order
+
+        :param `pair` [list]: Pair
+        :param `action_type` [str]: Action type
+        :param `amount` Union[int, float]: Amount
+        :param `min_excepted_amount` Union[int, float]: Min excepted amount
+        
+        """
+        return await self.request(
+            method = 'exchanges.createOrder', 
+            json = self.sign_message({
+                'pair': pair, 'type': action_type, 'amount': amount, 'min_expected_amount': min_excepted_amount
+            })
+        )
+
+    async def order_status(self, order_id: str):
+        """ Get order status
+        
+        :param `order_id` [str]: Order id
+        """
+        return await self.request(method = 'exchanges.orderStatus', params = {'id': order_id})
