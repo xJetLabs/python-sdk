@@ -8,7 +8,7 @@
 ```shell
 pip install xjet
 ```
-If requires <b>nacl</b> package, install it <i>manually</i>:
+If requires <b>ecdsa</b> package, install it <i>manually</i>:
 ```shell
 pip install ecdsa
 ```
