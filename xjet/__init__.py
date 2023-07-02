@@ -7,7 +7,7 @@ from .api import Account, Cheques, Invoices, System
 from nacl.signing import SigningKey
 from httpx import AsyncClient
 
-import secrets
+import random
 
 class JetAPI(Account, Cheques, Invoices, System):
 
@@ -55,7 +55,7 @@ class JetAPI(Account, Cheques, Invoices, System):
         
         :param `message` [dict]: Message for signing"""
         if 'query_id' not in message: 
-            message['query_id'] = int(time.time() + secrets.SystemRandom().randrange(60, 16000)) << 16
+            message['query_id'] = int(time.time() + 60) << 16 + random.randint(1, 16000)
 
         message['signature'] = SigningKey(self.private_key).sign(
             json.dumps(message).encode()
