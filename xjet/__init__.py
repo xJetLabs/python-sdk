@@ -3,7 +3,7 @@ import json
 
 from .api import Account, Cheques, Invoices, System, NFT, Exchanges
 
-from ecdsa import SigningKey, Ed25519
+from nacl.signing import SigningKey
 from httpx import AsyncClient
 
 
@@ -75,5 +75,7 @@ class JetAPI(Account, Cheques, Invoices, System, NFT, Exchanges):
         
         :param `message` [dict]: Message for signing"""
         message['query_id']  = (int(time.time() + 60) << 16) if 'query_id' not in message else message['query_id']
-        message['signature'] = SigningKey.from_string(self.private_key, curve=Ed25519).sign(json.dumps(message).encode()).hex()
+        message['signature'] = SigningKey(self.private_key).sign(
+            json.dumps(message).encode()
+        )._signature.hex()
         return message
