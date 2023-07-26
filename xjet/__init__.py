@@ -1,10 +1,8 @@
 from .api import Account, Cheques, Invoices, System, NFT, Exchanges
-from .constants import xJetNet
 from nacl.signing import SigningKey
 from httpx import AsyncClient
 import time
 import json
-import random
 
 
 class JetAPI(Account, Cheques, Invoices, System, NFT, Exchanges):
@@ -62,12 +60,16 @@ class JetAPI(Account, Cheques, Invoices, System, NFT, Exchanges):
                 url = self.network + "/" + method.replace('/', ''),
                 **kwargs
             )
-
-            res = request.json()
-            if res.get('error'): 
-                return res['error']
+            try:
+                res = request.json()
+            except BaseException:
+                return 'Invalid response: ' + request.text
+            
+            if res.get('error'):
+                raise Exception(res['error'])
+            
             return res
-        except Exception as e:
+        except BaseException as e:
             return {'error': e}
 
     def sign_message(self, message: dict = {}) -> dict:
