@@ -1,5 +1,5 @@
 from .api import Account, Cheques, Invoices, System, NFT, Exchanges
-from nacl.signing import SigningKey
+from ecdsa import SigningKey, Ed25519
 from httpx import AsyncClient
 import time
 import json
@@ -63,21 +63,19 @@ class JetAPI(Account, Cheques, Invoices, System, NFT, Exchanges):
             try:
                 res = request.json()
             except BaseException:
-                return 'Invalid response: ' + request.text
+                return {'error': 'Invalid response', 'context': request.text}
             
             if res.get('error'):
                 raise Exception(res['error'])
             
             return res
         except BaseException as e:
-            return {'error': e}
+            return {'error': f"{e}"}
 
     def sign_message(self, message: dict = {}) -> dict:
         """ Sign json body of reques
         
         :param `message` [dict]: Message for signing"""
         message['query_id']  = (int(time.time() + 60) << 16) if 'query_id' not in message else message['query_id']
-        message['signature'] = SigningKey(self.private_key).sign(
-            json.dumps(message).encode()
-        )._signature.hex()
+        message['signature'] = SigningKey.from_string(self.private_key, curve=Ed25519).sign(json.dumps(message).encode()).hex()
         return message
