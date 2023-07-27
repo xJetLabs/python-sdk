@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xjet"
-version = "0.1.3"
+version = "0.1.5"
 description = "Python SDK for t.me/xJetSwapBot"
 readme = "README.md"
 authors = [
@@ -8,15 +8,13 @@ authors = [
 ]
 maintainers = []
 repository = "https://github.com/xJetLabs/python-sdk"
-homepage = "https://github.com/xJetLabs/python-sdk"
+homepage = "https://t.me/xJetSwapBot"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
+    "Operating System :: OS Independent"
 ]
-keywords = ["ton", "the open network", "xjet", "xjetswap", "sdk"]
+keywords = ["ton", "xjet", "xjetswap", "sdk"]
 
 [tool.setuptools.package-data]
 xjet = []

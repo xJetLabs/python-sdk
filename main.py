@@ -41,6 +41,15 @@ async def main():
     await api.invoice_create(currency, amount, description, max_payments) # create invoice
     await api.invoice_status(invoice_id) # get invoice status
     await api.invoice_list() # get invoices on account
-
+    
+    # NFT methods
+    await api.nft_list() # get NFTs on account
+    await api.nft_transfer(nft_address, to_address) # transfer NFT
+    
+    # Exchange methods
+    await api.exchange_pairs()
+    await api.exchange_estimate(['exc', 'ton'], 'buy' or 'sell', ton_amount or exc_amount)
+    await api.exchange_create_order(['exc', 'ton'], 'buy' or 'sell', ton_amount or exc_amount, min_receive_amount)
+    await api.exchange_order_status(order_id)
 
 asyncio.run(main())

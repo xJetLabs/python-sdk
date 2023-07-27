@@ -216,11 +216,11 @@ class Exchanges:
 
     """
 
-    async def pairs(self):
+    async def exchange_pairs(self):
         """ Get list of pairs """
         return await self.request(method = 'exchanges.pairs', request_method = 'GET')
 
-    async def estimate(self, pair: list, action_type: str, amount: Union[int, float]):
+    async def exchange_estimate(self, pair: list, action_type: str, amount: Union[int, float]):
         """ Estimate
 
         :param `pair` [list]: Pair
@@ -235,7 +235,7 @@ class Exchanges:
             }
         )
 
-    async def create_order(self, pair: list, action_type: str, amount: Union[int, float], min_excepted_amount: Union[int, float]):
+    async def exchange_create_order(self, pair: list, action_type: str, amount: Union[int, float], min_excepted_amount: Union[int, float]):
         """ Create order
 
         :param `pair` [list]: Pair
@@ -251,7 +251,7 @@ class Exchanges:
             })
         )
 
-    async def order_status(self, order_id: str):
+    async def exchange_order_status(self, order_id: str):
         """ Get order status
         
         :param `order_id` [str]: Order id
