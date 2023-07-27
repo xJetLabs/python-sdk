@@ -153,5 +153,13 @@ await api.nft_list()
 await api.nft_transfer(nft_address, to_address)
 ```
 
+```python
+# Exchange methods
+await api.exchange_pairs()
+await api.exchange_estimate(['exc', 'ton'], 'buy' or 'sell', ton_amount or exc_amount)
+await api.exchange_create_order(['exc', 'ton'], 'buy' or 'sell', ton_amount or exc_amount, min_receive_amount)
+await api.exchange_order_status(order_id)
+```
+
 ## License
 [GNUv3](https://github.com/nik-1x/pyxJetAPI/blob/main/LICENSE)  
